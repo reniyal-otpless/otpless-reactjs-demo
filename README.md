@@ -1,6 +1,6 @@
 [![OTPless](https://d1j61bbz9a40n6.cloudfront.net/website/home/v4/logo/white_logo.svg)](https://otpless.com/platforms/react)
 
-# React-JS Demo: Otpless Login Page
+# React-JS Demo: Otpless Login Floater on Click
 
 ## Steps to add OTPless SDK to your ReactJS Website
 
@@ -43,12 +43,12 @@
     };
     ```
 
-3. **Add Otpless-login-page div**
+3. **Add button to open Otpless-login-floater**
 
-    > Add the following div in Login/Signup component.
+    > Add the following button in your component.
 
     ```html
-    <div id="otpless-login-page"></div>
+    <button id='otpless' custom="true">Get Started</button>
     ```
 
 ### This demo implementation adds extra modularity, scalability and reusability to the otpless-auth sdk
