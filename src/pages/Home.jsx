@@ -10,6 +10,6 @@ function Home() {
 		navigate('/result')
 	}
 
-	return <button id='otpless' custom="true">Get Started</button>
+	return <></>
 }
 export default Home

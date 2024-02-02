@@ -43,14 +43,6 @@
     };
     ```
 
-3. **Add button to open Otpless-login-floater**
-
-    > Add the following button in your component.
-
-    ```html
-    <button id='otpless' custom="true">Get Started</button>
-    ```
-
 ### This demo implementation adds extra modularity, scalability and reusability to the otpless-auth sdk
 
 ### Integration Options
