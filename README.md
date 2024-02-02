@@ -36,11 +36,60 @@
     > - retrive data using **otplessUser** object
 
     ```jsx
-    useEffect(() => initOTPless(callback), []);
+    useEffect(() => {
+		const urlParams = new URLSearchParams(window.location.search)
+		const paramsValue = urlParams.get('ex')
+		if (paramsValue) initOTPless(callback)
+	}, [])
 
-    const callback = (otplessUser) => {
-        alert(JSON.stringify(otplessUser));
-    };
+	const callback = (otplessUser) => {
+		removeQueryParam('ex')
+		alert(JSON.stringify(otplessUser))
+	}
+
+	const openModal = () => {
+		const urlParams = new URLSearchParams(window.location.search)
+		const paramsValue = urlParams.get('ex')
+
+		if (!paramsValue) {
+			const currentURL = window.location.href
+			const newParam1 = 'ex=true'
+			const updatedURL = `${currentURL}?${newParam1}`
+			window.history.pushState(null, '', updatedURL)
+		}
+		initOTPless(callback)
+		const modalContainer = document.getElementById('modalContainer')
+		modalContainer ? (modalContainer.style.display = 'flex') : ''
+
+		setTimeout(() => {
+			removeQueryParam('ex')
+		}, 1000)
+	}
+
+	const removeQueryParam = (param) => {
+		const url = new URL(window.location.href)
+		url.searchParams.delete(param)
+		window.history.pushState(null, '', url)
+	}
+
+	const closeModal = (e) => {
+		removeQueryParam('ex')
+		const modalContainer = document.getElementById('modalContainer')
+		if (e.target === modalContainer) {
+			modalContainer ? (modalContainer.style.display = 'none') : ''
+		}
+	}
+    ```
+
+3. **Add following code to render login page**
+
+    > Add the following div in Login/Signup component.
+
+    ```html
+    <div className="modal-container" id="modalContainer" onClick={closeModal}>
+        <div id="otpless-login-page"></div>
+    </div>
+    <button id="loginBtn" onClick={openModal}>Get Started</button>
     ```
 
 ### This demo implementation adds extra modularity, scalability and reusability to the otpless-auth sdk
