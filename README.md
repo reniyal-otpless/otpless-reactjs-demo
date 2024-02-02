@@ -1,6 +1,6 @@
 [![OTPless](https://d1j61bbz9a40n6.cloudfront.net/website/home/v4/logo/white_logo.svg)](https://otpless.com/platforms/react)
 
-# React-JS Demo: Otpless Login Floater on Click
+# React-JS Demo: Otpless Login Page on Click
 
 ## Steps to add OTPless SDK to your ReactJS Website
 
