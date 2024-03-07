@@ -9,12 +9,21 @@ function Home() {
 	useEffect(() => {
 		const urlParams = new URLSearchParams(window.location.search)
 		const paramsValue = urlParams.get('ex')
-		if (paramsValue) initOTPless(callback)
+		if (paramsValue) initOTPless(handleUserData)
 	}, [])
 
-	const callback = (otplessUser) => {
+	/** handleUserData - otpless callback function
+	 * @description
+	 * This function is called after authentication is done by otpless-sdk.
+	 * Use this function to further process the otplessUser object, navigate to next page or perform any other action based on your requirement.
+	 * @param {Object} otplessUser
+	 * @returns {void}
+	 */
+	const handleUserData = (otplessUser) => {
 		removeQueryParam('ex')
-		localStorage.setItem('token', otplessUser.token)
+		// Replace the following code with your own logic
+		console.log(otplessUser)
+		alert(JSON.stringify(otplessUser));
 		navigate('/result')
 	}
 
@@ -28,7 +37,7 @@ function Home() {
 			const updatedURL = `${currentURL}?${newParam1}`
 			window.history.pushState(null, '', updatedURL)
 		}
-		initOTPless(callback)
+		initOTPless(handleUserData)
 		const modalContainer = document.getElementById('modalContainer')
 		modalContainer ? (modalContainer.style.display = 'flex') : ''
 
