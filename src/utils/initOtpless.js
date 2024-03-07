@@ -1,12 +1,17 @@
 export const initOTPless = (callback) => {
-	console.log('called init')
+
 	const otplessInit = Reflect.get(window, 'otplessInit')
 
 	const loadScript = () => {
+		const isScriptLoaded = document.getElementById("otpless-sdk");
+		if(isScriptLoaded) return;
+
 		const script = document.createElement('script')
-		script.src = 'https://otpless.com/auth.js'
-		script.id = 'otplessIdScript'
-		// script.setAttribute('cid', 'YOUR_CID_HERE')
+		script.id = 'otpless-sdk'
+		script.type = 'text/javascript'
+		script.src = 'https://otpless.com/v2/auth.js'
+		// TODO: Add your app id
+		script.setAttribute('data-appid', 'PASTE_YOUR_APPID_HERE')
 		document.body.appendChild(script)
 	}
 
