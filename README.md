@@ -1,10 +1,11 @@
-[![OTPless](https://d1j61bbz9a40n6.cloudfront.net/website/home/v4/logo/white_logo.svg)](https://otpless.com/platforms/react)
+[![OTPless](https://d1j61bbz9a40n6.cloudfront.net/website/home/v4/logo/white_logo.svg)](https://otpless.com/)
 
 # React-JS Demo: Otpless Login Floater on Click
 
 ## Steps to add OTPless SDK to your ReactJS Website
 
-1. **Add OTPLESS Script as a function**
+1. **Create an App in [OTPless dashboard](https://otpless.com/dashboard/app) and copy the `APP ID`**
+2. **Add OTPLESS Script as a function**
 
     > Add the following code to your utils/initOtpless.js in root directory.
 
@@ -16,10 +17,11 @@
             const isScriptLoaded = document.getElementById("otplessIdScript");
             if(isScriptLoaded) return;
 
-            const script = document.createElement("script");
+            const script = document.createElement('script')
+            script.id = 'otpless-sdk'
+            script.type = 'text/javascript'
             script.src = "https://otpless.com/auth.js";
-            script.id = "otplessIdScript";
-            script.setAttribute("cid","YOUR_CID_HERE");
+            script.setAttribute('appId', 'PASTE_YOUR_APPID_HERE')
             document.body.appendChild(script);
         };
 
@@ -30,10 +32,10 @@
 
     ```
 
-2. **Load the script in Login/Signup component and add callback function**
+3. **Load the script in Login/Signup component and add callback function**
 
-    > - Add following code in Login/Signup component.
-    > - retrive data using **otplessUser** object
+    > Add following code in Login/Signup component.
+    >> retrive data using **otplessUser** object
 
     ```jsx
     useEffect(() => initOTPless(callback), []);
@@ -43,7 +45,7 @@
     };
     ```
 
-3. **Add button to open Otpless-login-floater**
+4. **Add button to open Otpless-login-floater**
 
     > Add the following button in your component.
 
@@ -79,21 +81,6 @@
 - Open [localhost:5173](http://localhost:5173) in your browser
 - Switch branches to check out available options to integrate *OTPless* in your project
 
-> Received User Data Format
+## *Thank You*
 
-```js
-// otpless user Format
-{
-    "token": "xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-    "timestamp": "YYYY-MM-DD HH:MM:SS",
-    "timezone": "+XX:XX",
-    "mobile": {
-        "name": "User Name",
-        "number": "User Mobile Number"
-    },
-    "email": {
-        "name": "User Name ",
-        "email": "User Email"
-    }
-}
-```
+## [Visit OTPless](https://otpless.com/platforms/react)
