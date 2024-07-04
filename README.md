@@ -49,7 +49,7 @@
 
         <div id="otp-section">
             <input id='otp-input' placeholder='Enter OTP' onChange={(e) => setOtp(e.target.value)} minLength={6} maxLength={6} />
-            <button onClick={() => verifyOTP({ channel: activeSection, otp, phone, email })}>Verify OTP</button>
+            <button onClick={() => verifyOTP({ channel: activeSection, otp, phone })}>Verify OTP</button>
         </div>
 
         <button onClick={() => Authenticate({channel: 'OAUTH', channelType:'WHATSAPP' })}>Authenticate with WhatsApp</button>
