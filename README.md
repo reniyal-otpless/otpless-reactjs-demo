@@ -1,38 +1,23 @@
 [![OTPless](https://d1j61bbz9a40n6.cloudfront.net/website/home/v4/logo/white_logo.svg)](https://otpless.com/)
 
-# React-JS Demo: Otpless Login Page
+# React-JS Demo: Otpless Headless SDK
 
-## Steps to add OTPless SDK to your ReactJS Website
+## Steps to add OTPless Headless SDK to your ReactJS Website
 
 1. **Create an App in [OTPless dashboard](https://otpless.com/dashboard/app) and copy the `APP ID`**
 2. **Add OTPLESS Script as a function**
 
-    > Add the following code to your utils/initOtpless.js in root directory.
+    > Add the contents of [initOtpless.js](./src/utils/initOtpless.js) file in `src/utils/initOtpless.js` file in your project and *paste* the `APP ID` [here](./src/utils/initOtpless.js#L13).
 
-    ```js
-    export const initOTPless = (callback) => {
-        const otplessInit = Reflect.get(window, "otplessInit");
+    **initOtpless.js file exports the following functions**
 
-        const loadScript = () => {
-            const isScriptLoaded = document.getElementById("otpless-sdk");
-            if(isScriptLoaded) return;
+    >> ***[initOTPless](./src/utils/initOtpless.js#L26)***, to initialize the OTPless SDK,
 
-            const script = document.createElement('script')
-            script.id = 'otpless-sdk'
-            script.type = 'text/javascript'
-            script.src = 'https://otpless.com/v2/auth.js'
-            script.setAttribute("data-appid", "PASTE_YOUR_APPID_HERE")
-            document.body.appendChild(script);
-        };
+    >> ***[Authenticate](./src/utils/initOtpless.js#L45)***, to authenticate the user.
 
-        otplessInit ? otplessInit() : loadScript();
+    >> ***[verifyOTP](./src/utils/initOtpless.js#L94)***, to verify the OTP.
 
-        Reflect.set(window, "otpless", callback);
-    };
 
-    ```
-
-    > [view source](./src/utils/initOtpless.js#L1)
 
 3. **Load the script in Login/Signup component and add callback function**
 
@@ -40,31 +25,40 @@
     >> retrive data using **otplessUser** object
 
     ```jsx
-    useEffect(() => initOTPless(callback), []);
+    useEffect(() => initOTPless(handleUserData), []);
 
-    const callback = (otplessUser) => {
+    const handleUserData = (otplessUser) => {
         alert(JSON.stringify(otplessUser));
     };
     ```
 
-    > [view source](./src/pages/Home.jsx#L8)
+    [view source](./src/pages/Home.jsx#L10)
 
-4. **Add Otpless-login-page div**
+4. **Create your UI**
 
-    > Add the following div in Login/Signup component.
+    > Design UI to collect user input and trigger authentication method of your choice.
 
-    ```html
-    <div id="otpless-login-page"></div>
+    ```jsx
+    const [phone, setPhone] = useState(null)
+	const [otp, setOtp] = useState(null)
+    return <>
+        <div id="mobile-section">
+            <input id='mobile-input' placeholder='Enter mobile number' onChange={(e) => setPhone(e.target.value)} />
+            <button onClick={() => Authenticate({ channel: 'PHONE', phone })}>Request OTP</button>
+        </div>
+
+        <div id="otp-section">
+            <input id='otp-input' placeholder='Enter OTP' onChange={(e) => setOtp(e.target.value)} minLength={6} maxLength={6} />
+            <button onClick={() => verifyOTP({ channel: activeSection, otp, phone, email })}>Verify OTP</button>
+        </div>
+
+        <button onClick={() => Authenticate({channel: 'OAUTH', channelType:'WHATSAPP' })}>Authenticate with WhatsApp</button>
+        <button onClick={() => Authenticate({channel: 'OAUTH', channelType:'GOOGLE'})}>Authenticate with Gmail</button>
+    </>
     ```
+    [view source](./src/pages/Home.jsx#L36)  (NOTE: This integration has a different ui)
 
-### This demo implementation adds extra modularity, scalability and reusability to the otpless-auth sdk
-
-### Integration Options
-
-- [OTPless-Page](https://github.com/reniyal-otpless/otpless-reactjs-demo/)
-- [OTPless-Page-OnClick](https://github.com/reniyal-otpless/otpless-reactjs-demo/tree/onclick-page-demo)
-- [OTPless-Floater](https://github.com/reniyal-otpless/otpless-reactjs-demo/tree/floater-demo)
-- [OTPless-Floater-OnClick](https://github.com/reniyal-otpless/otpless-reactjs-demo/tree/onclick-floater-demo)
+### This demo implementation adds extra modularity, scalability and reusability to the OTPless Headless sdk
 
 ### Usage
 
@@ -84,6 +78,8 @@
 
 - Open [localhost:5173](http://localhost:5173) in your browser
 - Switch branches to check out available options to integrate *OTPless* in your project
+
+### ***Note: Enable your choosen Authentication Method from [OTPless dashboard](https://otpless.com/dashboard/customer/channels) before using it.***
 
 ## *Thank You*
 
