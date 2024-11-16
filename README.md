@@ -20,9 +20,9 @@
             const script = document.createElement('script')
             script.id = 'otpless-sdk'
             script.type = 'text/javascript'
-            script.src = 'https://otpless.com/v2/auth.js'
+            script.src = 'https://otpless.com/v3/auth.js'
             script.setAttribute("data-appid", "PASTE_YOUR_APPID_HERE")
-            document.body.appendChild(script);
+            document.head.appendChild(script);
         };
 
         otplessInit ? otplessInit() : loadScript();
